@@ -1665,11 +1665,24 @@ h1, h2, h3, p { margin: 0; }
   /* 固定ヘッダー＋アンカーメニュー分の余白を確保 */
   html { scroll-padding-top: calc(var(--header-h) + 58px); }
   body { padding-top: var(--header-h); }
-  /* ファーストビュー：写真を上部バナーにして縦積み */
+  /* ファーストビュー：見出しを最上部に。写真は「頭痛が、」右の余白へ小さく配置 */
   .fv { min-height: 0; }
-  .fv__photo { position: relative; width: 100%; height: 240px; }
-  .fv__photo img { object-position: center 24%; }
-  .fv__photo::after { background: linear-gradient(0deg, #fff 0%, rgba(255,255,255,0) 34%); }
+  .fv__photo {
+    position: absolute;
+    top: 56px; right: 20px;
+    width: 50%; max-width: 190px; height: 124px;
+    z-index: 1;
+    overflow: hidden;
+  }
+  .fv__photo img { object-fit: cover; object-position: center 20%; transform: scale(1.12) translateX(-5%); }
+  /* 枠線なし：外周を四方向とも白へグラデーションで溶かし、背景にとかす */
+  .fv__photo::after {
+    content: "";
+    position: absolute; inset: 0; pointer-events: none; z-index: 2;
+    background:
+      linear-gradient(90deg, #fff 0%, rgba(255,255,255,0) 20%, rgba(255,255,255,0) 80%, #fff 100%),
+      linear-gradient(0deg,  #fff 0%, rgba(255,255,255,0) 20%, rgba(255,255,255,0) 80%, #fff 100%);
+  }
   .fv__inner { padding: 22px 24px 40px; }
   .fv__body { max-width: none; }
   .fv__actions { flex-direction: column; align-items: stretch; }
@@ -1733,7 +1746,7 @@ h1, h2, h3, p { margin: 0; }
   .promo__caption-role { font-size: 0.72rem; }
 
   /* ファーストビュー（スマホ） */
-  .fv__photo { height: 200px; }
+  .fv__photo { top: 56px; right: 18px; max-width: 170px; height: 118px; }
   .fv__inner { padding: 20px 18px 36px; }
   .fv__line { font-size: 1.4rem; }
   .fv__big { font-size: 3.1rem; }
