@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mochizukishinshin.github.io/mochizukishinshin/sitemap.xml
+Sitemap: https://mochizukishinshin.jp/sitemap.xml
