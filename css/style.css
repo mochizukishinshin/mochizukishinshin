@@ -964,9 +964,11 @@ h1, h2, h3, p { margin: 0; }
 /* ==================== 患者さまの声（動画） ==================== */
 .vv-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 32px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
 }
+/* 「もっと見る」で表示されるまで隠しておくカード（表示前は読み込まない） */
+.vv-card.is-hidden { display: none; }
 .vv-card {
   background: #fff;
   border: 1px solid var(--color-border);
@@ -978,14 +980,36 @@ h1, h2, h3, p { margin: 0; }
   position: relative;
   aspect-ratio: 16 / 9;
   background: var(--color-beige-deep);
+  cursor: pointer;
 }
 .vv-card__video iframe,
-.vv-card__video video {
+.vv-card__video video,
+.vv-card__thumb {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   border: 0;
+}
+/* サムネイル画像（実際の動画はクリック時に読み込む） */
+.vv-card__thumb {
+  object-fit: cover;
+  display: block;
+  z-index: 1;
+}
+/* 再生時間バッジ */
+.vv-card__duration {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  z-index: 2;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(35, 32, 28, 0.78);
+  color: #fff;
+  font-size: 0.8rem;
+  font-family: var(--font-sans);
+  letter-spacing: 0.02em;
 }
 .vv-card__placeholder {
   position: absolute;
@@ -1012,11 +1036,12 @@ h1, h2, h3, p { margin: 0; }
   font-size: 1.1rem;
   box-shadow: var(--shadow);
 }
-/* 動画のカスタム再生ボタン（初期表示ではネイティブコントロールを出さず、下部字幕を隠さない） */
+/* 動画のカスタム再生ボタン（初期表示ではサムネイルの上に重ねて表示） */
 .vv-card__playbtn {
   position: absolute;
   top: 50%;
   left: 50%;
+  z-index: 3;
   transform: translate(-50%, -50%);
   width: 66px;
   height: 66px;
@@ -1034,16 +1059,98 @@ h1, h2, h3, p { margin: 0; }
   box-shadow: var(--shadow);
   transition: background 0.2s, transform 0.2s;
 }
-.vv-card__playbtn:hover {
+.vv-card__video:hover .vv-card__playbtn,
+.vv-card__playbtn:hover,
+.vv-card__playbtn:focus-visible {
   background: #fff;
   transform: translate(-50%, -50%) scale(1.06);
 }
-.vv-card__video.is-playing .vv-card__playbtn { display: none; }
-
-.vv-card__body { padding: 22px 26px 26px; }
-.vv-card__stars { color: var(--color-star); letter-spacing: 0.1em; margin-bottom: 10px; }
-.vv-card__comment { line-height: 1.9; margin-bottom: 12px; }
+.vv-card__body { padding: 20px 22px 24px; }
+.vv-card__stars { color: var(--color-star); letter-spacing: 0.1em; margin-bottom: 8px; }
+.vv-card__heading {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+.vv-card__comment { line-height: 1.6; margin-bottom: 8px; font-size: 0.72rem; }
 .vv-card__name { font-weight: 600; font-size: 0.9rem; color: var(--color-text-light); }
+
+.vv-more__btn { font-family: var(--font-sans); font-size: 1.05rem; }
+
+/* 動画モーダル（クリックした動画のみ、この中で読み込んで再生する） */
+.vv-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.vv-modal[hidden] { display: none; }
+.vv-modal__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(35, 32, 28, 0.72);
+}
+.vv-modal__dialog {
+  position: relative;
+  z-index: 1;
+  width: min(880px, 100%);
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  padding: 16px;
+}
+.vv-modal__stage {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.vv-modal__stage video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.vv-modal__caption {
+  margin-top: 12px;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  color: var(--color-text);
+}
+.vv-modal__close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 16px 8px 12px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-cta);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+.vv-modal__close:hover,
+.vv-modal__close:focus-visible { background: #8f4230; }
+.vv-modal__close-txt { font-size: 0.9rem; }
+@media (max-width: 560px) {
+  .vv-modal { padding: 16px; }
+  .vv-modal__dialog { padding: 12px; }
+  .vv-modal__close { top: -12px; right: -6px; }
+}
 
 /* ==================== 固定アンカーメニュー ==================== */
 .quicknav {
@@ -1647,7 +1754,8 @@ h1, h2, h3, p { margin: 0; }
 @media (max-width: 900px) {
   .info__grid { grid-template-columns: 1fr; }
   .concerns-grid,
-  .voice-grid { grid-template-columns: repeat(2, 1fr); }
+  .voice-grid,
+  .vv-grid { grid-template-columns: repeat(2, 1fr); }
   .philosophy,
   .director,
   .access { grid-template-columns: 1fr; gap: 32px; }

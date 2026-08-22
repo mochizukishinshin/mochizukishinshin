@@ -243,28 +243,55 @@
       </p>
 
       <!-- 動画の声 -->
-      <div class="vv-grid">
+      <!--
+        ▼ 動画を追加する方法（ここに <article class="vv-card"> を1つ足すだけ）
+          1. images/ に動画（例 voice6.mp4）とサムネイル画像（例 poster6.jpg）を置く
+          2. 下の書式をコピーして vv-grid の中に貼り付ける
+          3. data-src に動画、img の src にサムネイル、コメント・属性を差し替える
+             （動画の長さが分かる場合は <p class="vv-card__duration"> を足すと再生時間バッジが出る）
+          ※ 最初の3本だけ表示され、「もっと見る」で3本ずつ追加表示されます（js/main.js が自動処理）
+
+          <article class="vv-card">
+            <div class="vv-card__video" data-src="images/voice6.mp4" data-title="◯◯に悩んでいた方">
+              <img class="vv-card__thumb" src="images/poster6.jpg" alt="◯◯に悩んでいたお客様のインタビュー動画" loading="lazy" onerror="this.remove()">
+              <div class="vv-card__placeholder" aria-hidden="true"><span class="vv-card__play">▶</span><span>お客様インタビュー動画</span></div>
+              <p class="vv-card__duration" aria-hidden="true">2:30</p>
+              <button class="vv-card__playbtn" type="button" aria-label="動画を再生：◯◯に悩んでいた方">▶</button>
+            </div>
+            <div class="vv-card__body">
+              <p class="vv-card__stars" aria-label="評価5段階中5">★★★★★</p>
+              <p class="vv-card__heading">◯◯に悩んでいた方</p>
+              <p class="vv-card__comment">「（お客様のコメント）」</p>
+              <p class="vv-card__name">◯◯にお住まいの◯代女性</p>
+            </div>
+          </article>
+      -->
+      <div class="vv-grid" id="vvGrid">
         <article class="vv-card">
-          <div class="vv-card__video">
-            <video src="images/voice1.mp4" poster="images/poster1.jpg" playsinline preload="metadata" aria-label="お客様インタビュー動画"></video>
-            <button class="vv-card__playbtn" type="button" aria-label="動画を再生">▶</button>
+          <div class="vv-card__video" data-src="images/voice5.mp4" data-title="目の疲れ・後頭部の重さに悩んでいた方">
+            <img class="vv-card__thumb" src="images/poster5.jpg" alt="目の疲れ・後頭部の重さに悩んでいたお客様のインタビュー動画のサムネイル" loading="lazy" onerror="this.remove()">
+            <div class="vv-card__placeholder" aria-hidden="true"><span class="vv-card__play">▶</span><span>お客様インタビュー動画</span></div>
+            <button class="vv-card__playbtn" type="button" aria-label="動画を再生：目の疲れ・後頭部の重さに悩んでいた方">▶</button>
           </div>
           <div class="vv-card__body">
             <p class="vv-card__stars" aria-label="評価5段階中5">★★★★★</p>
+            <p class="vv-card__heading">目の疲れ・後頭部の重さに悩んでいた方</p>
             <p class="vv-card__comment">
-              「肩こりと背中の張りがつらく悩んでいました。施術を受けたあとは首がよく回るようになり、体が軽く柔らかくなった感覚がありました。」
+              「公務員・栄養士として地域の健康づくりに携わっています。スマホやパソコンを見る時間が長く、目の疲れや、右後頭部からこめかみにかけての重さ・痛みに悩んでいました。施術のあとは視界が晴れて目が開くようで、後頭部の腫れぼったい感じもひいて、頭の周りがスッキリした感覚があります。」
             </p>
-            <p class="vv-card__name">戸塚区にお住まいの60代女性</p>
+            <p class="vv-card__name">◯◯にお住まいの◯代女性</p>
           </div>
         </article>
 
         <article class="vv-card">
-          <div class="vv-card__video">
-            <video src="images/voice2.mp4" poster="images/poster2.jpg" playsinline preload="metadata" aria-label="お客様インタビュー動画"></video>
-            <button class="vv-card__playbtn" type="button" aria-label="動画を再生">▶</button>
+          <div class="vv-card__video" data-src="images/voice2.mp4" data-title="頭のもやもや・重さに悩んでいた方">
+            <img class="vv-card__thumb" src="images/poster2.jpg" alt="頭のもやもや・重さに悩んでいた50代女性のお客様インタビュー動画のサムネイル" loading="lazy" onerror="this.remove()">
+            <div class="vv-card__placeholder" aria-hidden="true"><span class="vv-card__play">▶</span><span>お客様インタビュー動画</span></div>
+            <button class="vv-card__playbtn" type="button" aria-label="動画を再生：頭のもやもや・重さに悩んでいた方">▶</button>
           </div>
           <div class="vv-card__body">
             <p class="vv-card__stars" aria-label="評価5段階中5">★★★★★</p>
+            <p class="vv-card__heading">頭のもやもや・重さに悩んでいた方</p>
             <p class="vv-card__comment">
               「熱があるわけでもないのに、頭の中がずっと熱っぽくもやもやする感じに悩んでいました。施術のあとは、その頭のもやもやがかなり軽くなった感覚があります。話をしっかり聞いてくださり、安心して自分の思いを伝えられたのも良かったです。」
             </p>
@@ -273,12 +300,14 @@
         </article>
 
         <article class="vv-card">
-          <div class="vv-card__video">
-            <video src="images/voice3.mp4" poster="images/poster3.jpg" playsinline preload="metadata" aria-label="お客様インタビュー動画"></video>
-            <button class="vv-card__playbtn" type="button" aria-label="動画を再生">▶</button>
+          <div class="vv-card__video" data-src="images/voice3.mp4" data-title="頭の重さ・首肩のこりに悩んでいた方">
+            <img class="vv-card__thumb" src="images/poster3.jpg" alt="頭の重さ・首肩のこりに悩んでいた50代女性のお客様インタビュー動画のサムネイル" loading="lazy" onerror="this.remove()">
+            <div class="vv-card__placeholder" aria-hidden="true"><span class="vv-card__play">▶</span><span>お客様インタビュー動画</span></div>
+            <button class="vv-card__playbtn" type="button" aria-label="動画を再生：頭の重さ・首肩のこりに悩んでいた方">▶</button>
           </div>
           <div class="vv-card__body">
             <p class="vv-card__stars" aria-label="評価5段階中5">★★★★★</p>
+            <p class="vv-card__heading">頭の重さ・首肩のこりに悩んでいた方</p>
             <p class="vv-card__comment">
               「忙しさやストレスで頭がいっぱいになり、頭痛持ちではないのに時々頭が痛くなって、頭も重く、首や肩のこりにも悩んでいました。施術のあとは頭の中がスッキリと軽くなり、ごちゃごちゃしていた考えも整理して考えられるようになった感覚があります。通ううちに、頭の痛みも感じにくくなってきました。」
             </p>
@@ -286,25 +315,53 @@
           </div>
         </article>
 
-        <article class="vv-card">
-          <div class="vv-card__video">
-            <video src="images/voice4.mp4" poster="images/poster4.jpg" playsinline preload="metadata" aria-label="お客様インタビュー動画"></video>
-            <button class="vv-card__playbtn" type="button" aria-label="動画を再生">▶</button>
+        <article class="vv-card is-hidden">
+          <div class="vv-card__video" data-src="images/voice4.mp4" data-title="首の痛み・頭の重さに悩んでいた方">
+            <img class="vv-card__thumb" src="images/poster4.jpg" alt="首の痛み・頭の重さに悩んでいたお客様のインタビュー動画のサムネイル" loading="lazy" onerror="this.remove()">
+            <div class="vv-card__placeholder" aria-hidden="true"><span class="vv-card__play">▶</span><span>お客様インタビュー動画</span></div>
+            <button class="vv-card__playbtn" type="button" aria-label="動画を再生：首の痛み・頭の重さに悩んでいた方">▶</button>
           </div>
           <div class="vv-card__body">
             <p class="vv-card__stars" aria-label="評価5段階中5">★★★★★</p>
+            <p class="vv-card__heading">首の痛み・頭の重さに悩んでいた方</p>
             <p class="vv-card__comment">
               「介護施設で理学療法士をしています。首の痛みや頭の重さ、背中・腰の痛みに悩んでいました。施術のあとは頭も目もスッキリして、腰の重みも取れた感覚があります。自分の体の状態や、普段できるセルフケア・体の使い方まで教えてもらえるのもありがたいです。」
             </p>
             <p class="vv-card__name">◯◯にお住まいの◯代女性</p>
           </div>
         </article>
+
+        <article class="vv-card is-hidden">
+          <div class="vv-card__video" data-src="images/voice1.mp4" data-title="肩こり・背中の張りに悩んでいた方">
+            <img class="vv-card__thumb" src="images/poster1.jpg" alt="肩こり・背中の張りに悩んでいた60代女性のお客様インタビュー動画のサムネイル" loading="lazy" onerror="this.remove()">
+            <div class="vv-card__placeholder" aria-hidden="true"><span class="vv-card__play">▶</span><span>お客様インタビュー動画</span></div>
+            <button class="vv-card__playbtn" type="button" aria-label="動画を再生：肩こり・背中の張りに悩んでいた方">▶</button>
+          </div>
+          <div class="vv-card__body">
+            <p class="vv-card__stars" aria-label="評価5段階中5">★★★★★</p>
+            <p class="vv-card__heading">肩こり・背中の張りに悩んでいた方</p>
+            <p class="vv-card__comment">
+              「肩こりと背中の張りがつらく悩んでいました。施術を受けたあとは首がよく回るようになり、体が軽く柔らかくなった感覚がありました。」
+            </p>
+            <p class="vv-card__name">戸塚区にお住まいの60代女性</p>
+          </div>
+        </article>
       </div>
 
-      <!-- お客様の声（動画）をもっと見るための別ページへのリンク -->
+      <!-- 同じページ内で3本ずつ追加表示するボタン（別ページへは移動しない） -->
       <p class="vv-more">
-        <a href="voice.html" class="link-arrow">お客様の声（動画）をもっと見る</a>
+        <button class="btn btn--outline vv-more__btn" id="vvMoreBtn" type="button" aria-expanded="false" aria-controls="vvGrid">お客様の声（動画）をもっと見る</button>
       </p>
+
+      <!-- 動画を大きく再生するモーダル（クリックされた動画のみ読み込む） -->
+      <div class="vv-modal" id="vvModal" hidden>
+        <div class="vv-modal__overlay" data-vv-close></div>
+        <div class="vv-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="vvModalTitle" tabindex="-1">
+          <button class="vv-modal__close" id="vvModalClose" type="button" data-vv-close aria-label="動画を閉じる">×<span class="vv-modal__close-txt">閉じる</span></button>
+          <div class="vv-modal__stage" id="vvModalStage"></div>
+          <p class="vv-modal__caption" id="vvModalTitle"></p>
+        </div>
+      </div>
 
       <!-- Googleクチコミ（第三者評価で信頼を補強） -->
       <div class="rating-badge">
